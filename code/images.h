@@ -7,6 +7,9 @@
 #include <stdlib.h>
 #include <string.h>
 
+#define DEMOFILE "start/test.pbm"
+#define MAX_TURNS 10
+
 // Structs & Enums
 typedef struct _image_PBM {
     int width;
@@ -24,7 +27,7 @@ typedef struct _image_PBM {
  * @param height 
  * @return image_PBM 
  */
-image_PBM init_PBM(unsigned char *pixels, int width, int height);
+image_PBM init_PBM(unsigned char *pixels, int *width, int *height);
 
 /**
  * @brief Show grid
@@ -64,10 +67,11 @@ image_PBM copy_PBM(const image_PBM* image);
 /**
  * @brief 
  * 
- * @param generation
+ * @param filename 
+ * @param image 
+ * @return int 
  */
-void lifeCycle(image_PBM* generation);
-
+int write_pbm(const char* filename, const image_PBM* image);
 
 
 // Close safety define

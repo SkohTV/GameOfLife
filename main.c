@@ -3,7 +3,7 @@
 
 
 int main(int argc, char *argv[]) {
-    printf("\n\n\n");
+    // printf("\n\n\n");
 
     printf("Hello World!\n");
 
@@ -18,18 +18,20 @@ int main(int argc, char *argv[]) {
     }
 
 
-// unsigned char glider[100] = {
-//  0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-//  0, 0, 0, 1, 0, 0, 0, 0, 0, 0,
-//  0, 1, 0, 1, 0, 0, 0, 0, 0, 0,
-//  0, 0, 1, 1, 0, 0, 0, 0, 0, 0,
-//  0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-//  0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-//  0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-//  0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-//  0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-//  0, 0, 0, 0, 0, 0, 0, 0, 0, 0
-// };
+
+
+unsigned char glider[100] = {
+ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+ 0, 0, 0, 1, 0, 0, 0, 0, 0, 0,
+ 0, 1, 0, 1, 0, 0, 0, 0, 0, 0,
+ 0, 0, 1, 1, 0, 0, 0, 0, 0, 0,
+ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+};
 
 // for (int i = 0; i < width * height; i++) {
 //     printf("%c", (char)glider[i]);
@@ -37,13 +39,30 @@ int main(int argc, char *argv[]) {
 
     // printf("%d\n", get(&image, 5, 5));
 
-    image_PBM image = init_PBM(pixe, width, height);
+    image_PBM image = init_PBM(NULL, &width, &height);
     image_PBM newImage = copy_PBM(&image);
-    set(&newImage, 5, 5, 1);
+    // set(&newImage, 5, 5, 1);
 
-    show_PBM(&image);
-    printf("\n");
-    show_PBM(&newImage);
 
+    clearScreen();
+
+    int turn = 0;
+    char filename[30] = "";
+
+
+    for (int i = 0; i < 5; i++) {
+        snprintf(filename, 30, "images/img-%d.pbm", turn); 
+        turn++;
+
+        write_pbm(filename , &image);
+        show_PBM(&image);
+
+        printf("\n");
+        lifeCycle(&image);
+
+    }
+
+    // Free and clear
+    
     return EXIT_SUCCESS;
 }

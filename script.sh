@@ -1,0 +1,1 @@
+convert -delay 10 images/img-*.pbm Game.gif

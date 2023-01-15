@@ -2,14 +2,11 @@
 
 
 
-image_PBM init_PBM(unsigned char *pixels, int width, int height) {
+image_PBM init_PBM(unsigned char *pixels, int *width, int *height) {
     image_PBM image;
-    image.width = width;
-    image.height = height;
-    image.pixels = (unsigned char *)malloc(width * height * sizeof(unsigned char));
 
     if (pixels == NULL) {
-        FILE * myfile = fopen("start/test.pbm", "r"); // REMOVE LATER
+        FILE * myfile = fopen(DEMOFILE, "r"); // REMOVE LATER
 
         // Check if file exists
         if (myfile == NULL) {
@@ -21,22 +18,33 @@ image_PBM init_PBM(unsigned char *pixels, int width, int height) {
         size_t len = 0; // Buffer size
         getline(&line, &len, myfile); // We don't care about first line (magic number)
         getline(&line, &len, myfile); // We care about second line (width and height)
-        sscanf(line,"%d %d", &width, &height);
+        sscanf(line,"%d %d", width, height);
+        image.width = *width;
+        image.height = *height;
+        image.pixels = (unsigned char *)malloc((*width) * (*height) * sizeof(unsigned char));
 
         // Third to the end will be the image data
         char tmp;
         int count = 0;
         while (tmp != EOF){
             tmp = fgetc(myfile);
-            if (tmp == '1' || tmp == '0') {
-                image.pixels[count] = (unsigned char)tmp;
+            if (tmp == '1') {
+                image.pixels[count] = 1;
+                count++;
+            }
+            else if (tmp == '0') {
+                image.pixels[count] = 0;
                 count++;
             }
         }
+        printf("\n");
         fclose(myfile); // Close file
     }
     else {
-        for (int i = 0; i < width * height; i++) {
+        image.width = *width;
+        image.height = *height;
+        image.pixels = (unsigned char *)malloc((*width) * (*height) * sizeof(unsigned char));
+        for (int i = 0; i < (*width) * (*height); i++) {
             image.pixels[i] = pixels[i];
         }
     }
@@ -46,7 +54,7 @@ image_PBM init_PBM(unsigned char *pixels, int width, int height) {
 
 void show_PBM(const image_PBM* image) {
     for (int i = 0; i < image->width * image->height; i++) {
-        printf("%c", (image->pixels[i] == 0 ? '.' : 'X'));
+        printf("%c", (image->pixels[i] == 0 ? ':' : 'X'));
         if ((i + 1) % image->width == 0) {
             printf("\n");
         }
@@ -78,28 +86,22 @@ image_PBM copy_PBM(const image_PBM* image) {
 }
 
 
-void lifeCycle(image_PBM* generation) {
-    for (int i = 0; i < generation->height * generation->width; i++) {
-        /* Adjacents cells will be :
-        H-1 & W-1 | H-1+W | H-1 & W+1
-        H & W-1   |       | H & W+1
-        H+1 & W-1 | H+1+W | H+1 & W+1
-        
-        To get W & H :
-        H = i/10 (17/10 = 1)
-        W = i%10 (17%10 = 7)
-        */
-        unsigned char target = generation->pixels[i];
-        int H = i/10;
-        int W = i%10;
-        int locate[8] = {
-            ((H-1)*10)+(W-1) , ((H-1)*10)+(W) , ((H-1)*10)+(W+1),
-            (H*10)+(W-1) , (H*10)+(W) , (H*10)+(W+1),
-            ((H+1)*10)+(W-1) , ((H+1)*10)+(W) , ((H+1)*10)+(W+1)
-        };
-        unsigned char adjacent[8];
+int write_pbm(const char* filename, const image_PBM* image) {
+    FILE * myfile = fopen(filename, "w");
 
-        // Patch incorrect (out of bound) targets
-        if 
+    // Check if file exists
+    if (myfile == NULL) {
+        printf("Error opening file!\n");
+        exit(1);
+    }
+
+    fprintf(myfile, "P1\n%d %d\n", image->width, image->height);
+
+    // Loop to write each pixel
+    for (int i = 0; i < image->height; i++) {
+        for (int j = 0; j < image->width; j++) {
+            fprintf(myfile, "%d ", image->pixels[i*image->width + j]);
+        }
+        fprintf(myfile, "\n");
     }
 }
