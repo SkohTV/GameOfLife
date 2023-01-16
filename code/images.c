@@ -24,7 +24,7 @@ image_PBM init_PBM(unsigned char *pixels, int *width, int *height) {
         image.pixels = (unsigned char *)malloc((*width) * (*height) * sizeof(unsigned char));
 
         // Third to the end will be the image data
-        char tmp;
+        char tmp = ' ';
         int count = 0;
         while (tmp != EOF){
             tmp = fgetc(myfile);
@@ -38,7 +38,9 @@ image_PBM init_PBM(unsigned char *pixels, int *width, int *height) {
             }
         }
         printf("\n");
+        free(line);
         fclose(myfile); // Close file
+
     }
     else {
         image.width = *width;
@@ -95,7 +97,9 @@ int write_pbm(const char* filename, const image_PBM* image) {
         exit(1);
     }
 
-    fprintf(myfile, "P1\n%d %d\n", image->width, image->height);
+    printf("We arrive here %s\n", filename);
+    fprintf(myfile, "P1\n%d %d\n", image->width, image->height); // ! PROBLEME HERE
+    printf("We arrive here %s\n", filename);
 
     // Loop to write each pixel
     for (int i = 0; i < image->height; i++) {
@@ -104,4 +108,7 @@ int write_pbm(const char* filename, const image_PBM* image) {
         }
         fprintf(myfile, "\n");
     }
+    
+    fclose(myfile);
+    return EXIT_SUCCESS;
 }

@@ -11,7 +11,7 @@ void lifeCycle(image_PBM* generation) {
         H-1 & W-1 | H-1 & W | H-1 & W+1
         H & W-1   |         | H & W+1
         H+1 & W-1 | H+1 & W | H+1 & W+1
-        
+    
         To get W & H :
         H = i/10 (17/10 = 1)
         W = i%10 (17%10 = 7)
@@ -45,7 +45,17 @@ void lifeCycle(image_PBM* generation) {
             }
         }
     }
-    *generation = copy_PBM(&nextGen);
+
+    printf("%d %d, %d", generation->height, generation->width, generation->height * generation->width);
+
+    show_PBM(&nextGen);
+    for (int i = 0; i < generation->width * generation->height; i++) {
+        generation->pixels[i] = nextGen.pixels[i];
+    }
+    // for (int i = 0; i < generation->width * generation->height; i++) {
+    //     printf("%d", generation->pixels[i]);
+    // }
+    free(nextGen.pixels);
 }
 
 

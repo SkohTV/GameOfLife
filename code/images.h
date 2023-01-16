@@ -7,7 +7,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#define DEMOFILE "start/test.pbm"
+#define DEMOFILE "start/glider_2.pbm"
 #define MAX_TURNS 10
 
 // Structs & Enums
