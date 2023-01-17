@@ -37,7 +37,7 @@ image_PBM init_PBM(unsigned char *pixels, int *width, int *height) {
                 count++;
             }
         }
-        printf("\n");
+        // printf("\n");
         free(line);
         fclose(myfile); // Close file
 
@@ -78,7 +78,9 @@ image_PBM copy_PBM(const image_PBM* image) {
     image_PBM newImage;
     newImage.width = image->width;
     newImage.height = image->height;
-    newImage.pixels = (unsigned char *)malloc(image->width * image->height * sizeof(unsigned char));
+    // printf("%ld ", image->width * image->height * sizeof(unsigned char));
+    // printf("AAAAAAA:\n");
+    newImage.pixels = (unsigned char *)malloc(image->width * image->height * sizeof(unsigned char *));
 
     for (int i = 0; i < image->width * image->height; i++) {
         newImage.pixels[i] = image->pixels[i];
@@ -97,9 +99,10 @@ int write_pbm(const char* filename, const image_PBM* image) {
         exit(1);
     }
 
-    printf("We arrive here %s\n", filename);
-    fprintf(myfile, "P1\n%d %d\n", image->width, image->height); // ! PROBLEME HERE
-    printf("We arrive here %s\n", filename);
+    // printf("We arrive here %s\n", filename);
+    // printf("aaa - %d %d\n", image->width, image->height);
+    fprintf(myfile, "P1\n%d %d\n", image->width, image->height);
+    // printf("We good here %s\n", filename);
 
     // Loop to write each pixel
     for (int i = 0; i < image->height; i++) {

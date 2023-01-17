@@ -16,8 +16,8 @@ void lifeCycle(image_PBM* generation) {
         H = i/10 (17/10 = 1)
         W = i%10 (17%10 = 7)
         */
-        int H = i/10;
-        int W = i%10;
+        int H = i/(generation->width);
+        int W = i%(generation->width);
 
 
         int friends = {
@@ -46,9 +46,9 @@ void lifeCycle(image_PBM* generation) {
         }
     }
 
-    printf("%d %d, %d", generation->height, generation->width, generation->height * generation->width);
+    // printf("%d %d, %d\n", generation->height, generation->width, generation->height * generation->width);
 
-    show_PBM(&nextGen);
+    // show_PBM(&nextGen);
     for (int i = 0; i < generation->width * generation->height; i++) {
         generation->pixels[i] = nextGen.pixels[i];
     }

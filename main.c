@@ -46,7 +46,7 @@ int main(int argc, char *argv[]) {
 
     // clearScreen();
 
-    int turn = 0;
+    int turn = 100000;
     char filename[30] = "";
 
 
@@ -54,11 +54,12 @@ int main(int argc, char *argv[]) {
         snprintf(filename, 30, "images/img-%d.pbm", turn); 
         turn++;
 
+        // printf("%s\n", filename);
         write_pbm(filename , &image);
         // show_PBM(&image);
 
         // printf("\n");
-        printf("Image %d generated\n", i+1);
+        // printf("Image %d generated\n", i+1);
         lifeCycle(&image);
 
     }
@@ -66,6 +67,6 @@ int main(int argc, char *argv[]) {
     // Free and clear
     free(image.pixels);
 
-    printf("\nDone !\n");
+    printf("Done !\n");
     return EXIT_SUCCESS;
 }

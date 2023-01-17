@@ -7,8 +7,8 @@
 #include <stdlib.h>
 #include <string.h>
 
-#define DEMOFILE "start/glider_2.pbm"
-#define MAX_TURNS 10
+#define DEMOFILE "start/bandersnatch.pbm"
+#define MAX_TURNS 220
 
 // Structs & Enums
 typedef struct _image_PBM {
