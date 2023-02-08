@@ -3,19 +3,20 @@
 
 
 int main(int argc, char *argv[]) {
-    // printf("\n\n\n");
+	char * demofile = argv[1];
+	int max_turns = atoi(argv[2]);
 
-    printf("Generating images...\n");
+	printf("Generating images...\n");
 
-    // Base data, will be made changeable later on
-    int width = 0;
-    int height = 0;
+	// Base data, will be made changeable later on
+	int width = 0;
+	int height = 0;
 
-    // unsigned char * pixe = (unsigned char *)malloc(width * height * sizeof(unsigned char));
-    // for (int i = 0; i < width * height; i++) {
-    //     pixe[i] = 0;
-    //     // pixe[i] = (unsigned char)'0';
-    // }
+	// unsigned char * pixe = (unsigned char *)malloc(width * height * sizeof(unsigned char));
+	// for (int i = 0; i < width * height; i++) {
+	//     pixe[i] = 0;
+	//     // pixe[i] = (unsigned char)'0';
+	// }
 
 
 
@@ -37,36 +38,35 @@ int main(int argc, char *argv[]) {
 //     printf("%c", (char)glider[i]);
 
 
-    // printf("%d\n", get(&image, 5, 5));
+	// printf("%d\n", get(&image, 5, 5));
 
-    image_PBM image = init_PBM(NULL, &width, &height);
-    // image_PBM newImage = copy_PBM(&image);
-    // set(&newImage, 5, 5, 1);
-
-
-    // clearScreen();
-
-    int turn = 100000;
-    char filename[30] = "";
+	image_PBM image = init_PBM(NULL, &width, &height, demofile);
+	// image_PBM newImage = copy_PBM(&image);
+	// set(&newImage, 5, 5, 1);
 
 
-    for (int i = 0; i < MAX_TURNS; i++) {
-        snprintf(filename, 30, "images/img-%d.pbm", turn); 
-        turn++;
+	// clearScreen();
 
-        // printf("%s\n", filename);
-        write_pbm(filename , &image);
-        // show_PBM(&image);
+	int turn = 100000;
+	char filename[30] = "";
 
-        // printf("\n");
-        // printf("Image %d generated\n", i+1);
-        lifeCycle(&image);
 
-    }
+	for (int i = 0; i < max_turns; i++) {
+		snprintf(filename, 30, "images/img-%d.pbm", turn); 
+		turn++;
 
-    // Free and clear
-    free(image.pixels);
+		// printf("%s\n", filename);
+		write_pbm(filename , &image);
+		// show_PBM(&image);
 
-    printf("Done !\n");
-    return EXIT_SUCCESS;
+		// printf("\n");
+		// printf("Image %d generated\n", i+1);
+		lifeCycle(&image);
+
+	}
+
+	// Free and clear
+	free(image.pixels);
+
+	return EXIT_SUCCESS;
 }

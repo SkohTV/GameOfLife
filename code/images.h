@@ -7,14 +7,11 @@
 #include <stdlib.h>
 #include <string.h>
 
-#define DEMOFILE "start/256.pbm"
-#define MAX_TURNS 512
-
 // Structs & Enums
 typedef struct _image_PBM {
-    int width;
-    int height;
-    unsigned char * pixels;
+	int width;
+	int height;
+	unsigned char * pixels;
 } image_PBM;
 
 
@@ -25,9 +22,10 @@ typedef struct _image_PBM {
  * @param pixels 
  * @param width 
  * @param height 
+ * @param demofile
  * @return image_PBM 
  */
-image_PBM init_PBM(unsigned char *pixels, int *width, int *height);
+image_PBM init_PBM(unsigned char *pixels, int *width, int *height, char *demofile);
 
 /**
  * @brief Show grid

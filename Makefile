@@ -9,9 +9,3 @@ images.o: code/images.c code/images.h
 
 clean:
 	rm -f *.o GameOfLife | rm images/*.pbm
-
-soft:
-	rm -f *.o | rm images/*.pbm
-
-create:
-	./script.sh

@@ -1,6 +1,3 @@
-WILL (not) BE REWRITTEN LATER ON
-
-
 ### Description
 
 <br>
@@ -12,13 +9,20 @@ Different initial pbm grids are loadable
 
 <br>
 
----
+### Execute
+You will need :<br>
+\- gcc<br>
+\- ImageMagick<br>
+
+And run `./start.sh <filename> <period> <delay>`
 
 <br>
 
 ### Design stage
 
-Will be changed for a better tool
+Not the best tool, but does the job<br>
+(Has been improved since, but not rewritten)
+<details>
+<summary>Flowchart</summary>
 <image src="data/flowchart.png">
-
-<br>
+</details>
